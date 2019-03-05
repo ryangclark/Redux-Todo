@@ -1,3 +1,4 @@
+import { NEW_TODO } from '../actions/actions';
 import { TOGGLE_COMPLETED } from '../actions/actions';
 
 const initialState = {
@@ -10,17 +11,26 @@ const initialState = {
 
 export default (state = initialState, action) => {
     switch (action.type) {
+        case NEW_TODO:
+            const newTodo = {
+                value: action.todoText,
+                completed: false
+            };
+            return {
+                ...state,
+                todoList: [...state.todoList, newTodo]
+            };
         case TOGGLE_COMPLETED:
             return {
                 // spread out the previous state first
                 ...state,
                 // then, update based on action.type
                 todoList: state.todoList.map(todo => {
-                    return todo.value === action.payload
+                    return todo.value === action.todoText
                     ? {...todo, completed: !todo.completed}
                     : todo
                 })
-            }
+            };
         default:
             return state;
     }
