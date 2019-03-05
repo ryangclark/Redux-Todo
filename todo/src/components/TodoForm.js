@@ -4,17 +4,17 @@ import { addTodo } from '../actions/actions';
 
 const TodoForm = ({ dispatch }) => {
     // variable for Ref
-    let input;
+    let inputElement = React.createRef();
 
     return (
         <form
             className="todo-form"
-            // the function below uses the `input` Ref
+            // the function below uses the `inputElement` Ref
             onSubmit={event => {
                 event.preventDefault();
-                if (!input.value.trim()) {return;}
-                dispatch(addTodo(input.value));
-                input.value = '';
+                if (!inputElement.value.trim()) {return;}
+                dispatch(addTodo(inputElement.value));
+                inputElement.value = '';
             }}
         >
             <label>
@@ -22,7 +22,7 @@ const TodoForm = ({ dispatch }) => {
                 <input
                     placeholder="something need doing?"
                     name="todo"
-                    ref={node => (input = node)}
+                    ref={node => (inputElement = node)}
                     type="text"
                 />
             </label><br></br>
