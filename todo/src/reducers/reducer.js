@@ -1,3 +1,4 @@
+import { DELETE_TODO } from '../actions/actions';
 import { NEW_TODO } from '../actions/actions';
 import { TOGGLE_COMPLETED } from '../actions/actions';
 
@@ -11,6 +12,12 @@ const initialState = {
 
 export default (state = initialState, action) => {
     switch (action.type) {
+        case DELETE_TODO:
+            return {
+                ...state,
+                todoList: state.todoList.filter(todo =>
+                    todo.value !== action.todoText)
+            }
         case NEW_TODO:
             const newTodo = {
                 value: action.todoText,
